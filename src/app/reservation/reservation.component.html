@@ -1,0 +1,244 @@
+<div class="title" >
+  Prenotazione Appuntamento
+</div>
+<hr>
+
+<ng-template #customCellTemplate  let-day="day" let-locale="locale">
+  <div class="cal-cell-top">
+    <span class="cal-day-number">
+      {{ day.date | calendarDate:'monthViewDayNumber':locale }}
+    </span>
+  </div>
+  <small class="label-avaibility"
+         *ngIf="dateIsValid(day.date) && day.date.getDay() != 1">
+    {{freeSlot(day.date)}} posti disponibili
+  </small>
+</ng-template>
+
+<ng-template
+  #mobileHeaderTemplateMonth
+  let-days="days"
+  let-locale="locale"
+  let-trackByWeekDayHeaderDate="trackByWeekDayHeaderDate">
+  <div class="cal-cell-row cal-header" role="row">
+    <div
+      class="cal-cell"
+      *ngFor="let day of days; trackBy: trackByWeekDayHeaderDate"
+      [class.cal-past]="day.isPast"
+      [class.cal-today]="day.isToday"
+      [class.cal-future]="day.isFuture"
+      [class.cal-weekend]="day.isWeekend"
+      [ngClass]="day.cssClass"
+      tabindex="0"
+      role="columnheader">
+      {{ (day.date | calendarDate: 'weekViewColumnHeader':locale).substring(0,3) }}
+    </div>
+  </div>
+</ng-template>
+
+<ng-template
+  #desktopHeaderTemplateMonth
+  let-days="days"
+  let-locale="locale"
+  let-trackByWeekDayHeaderDate="trackByWeekDayHeaderDate">
+  <div class="cal-cell-row cal-header" role="row">
+    <div
+      class="cal-cell"
+      *ngFor="let day of days; trackBy: trackByWeekDayHeaderDate"
+      [class.cal-past]="day.isPast"
+      [class.cal-today]="day.isToday"
+      [class.cal-future]="day.isFuture"
+      [class.cal-weekend]="day.isWeekend"
+      [ngClass]="day.cssClass"
+      tabindex="0"
+      role="columnheader">
+      {{ (day.date | calendarDate: 'weekViewColumnHeader':locale) }}
+    </div>
+  </div>
+</ng-template>
+
+<ng-template
+  #desktopHeaderTemplate
+  let-days="days"
+  let-locale="locale"
+  let-dayHeaderClicked="dayHeaderClicked"
+  let-eventDropped="eventDropped"
+  let-trackByWeekDayHeaderDate="trackByWeekDayHeaderDate"
+  let-dragEnter="dragEnter"
+>
+  <div class="cal-day-headers" role="row">
+    <div
+      class="cal-header"
+      *ngFor="let day of days; trackBy: trackByWeekDayHeaderDate"
+      [class.cal-past]="day.isPast"
+      [class.cal-today]="day.isToday"
+      [class.cal-future]="day.isFuture"
+      [class.cal-weekend]="day.isWeekend"
+      [ngClass]="day.cssClass"
+      (mwlClick)="dayHeaderClicked.emit({ day: day, sourceEvent: $event })"
+      mwlDroppable
+      dragOverClass="cal-drag-over"
+      (drop)="
+            eventDropped.emit({
+              event: $event.dropData.event,
+              newStart: day.date
+            })
+          "
+      (dragEnter)="dragEnter.emit({ date: day.date })"
+      tabindex="0"
+      role="columnheader"
+    >
+      <b>{{ day.date | calendarDate: 'weekViewColumnHeader':locale }}</b
+      ><br />
+      <span>{{
+        day.date | calendarDate: 'weekViewColumnSubHeader':locale
+        }}</span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template
+  #mobileHeaderTemplate
+  let-days="days"
+  let-locale="locale"
+  let-dayHeaderClicked="dayHeaderClicked"
+  let-eventDropped="eventDropped"
+  let-trackByWeekDayHeaderDate="trackByWeekDayHeaderDate"
+  let-dragEnter="dragEnter"
+>
+  <div class="cal-day-headers" role="row">
+    <div
+      class="cal-header"
+      *ngFor="let day of days; trackBy: trackByWeekDayHeaderDate"
+      [class.cal-past]="day.isPast"
+      [class.cal-today]="day.isToday"
+      [class.cal-future]="day.isFuture"
+      [class.cal-weekend]="day.isWeekend"
+      [ngClass]="day.cssClass"
+      (mwlClick)="dayHeaderClicked.emit({ day: day, sourceEvent: $event })"
+      mwlDroppable
+      dragOverClass="cal-drag-over"
+      (drop)="
+            eventDropped.emit({
+              event: $event.dropData.event,
+              newStart: day.date
+            })
+          "
+      (dragEnter)="dragEnter.emit({ date: day.date })"
+      tabindex="0"
+      role="columnheader"
+    >
+
+      <b>{{ (day.date | calendarDate: 'weekViewColumnHeader':locale).substring(0,3)}}</b
+      ><br />
+      <span>{{day.date | calendarDate: 'weekViewColumnSubHeader':locale}}</span>
+    </div>
+  </div>
+</ng-template>
+
+<div class="row">
+  <div class="col-12">
+    <div class="row row-month" >
+      <div class="col-8" style="display: inline">
+        <button
+          class="btn bi bi-arrow-left-circle-fill icon shadow-none"
+          style="padding-left: 0;"
+          (click)="decrement()"
+          [disabled]="prevBtnDisabled"
+        >
+        </button>
+        <span class="label-month" style="">
+          <b>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</b>
+        </span>
+        <button
+          class="btn bi bi-arrow-right-circle-fill icon shadow-none"
+          style="padding-right: 0;"
+          (click)="increment()"
+          [disabled]="nextBtnDisabled">
+        </button>
+      </div>
+
+      <div class="col-4">
+          <button
+            class="btn bi bi-calendar3 icon shadow-none"
+            (click)="changeView('month')"
+            [class.active]="view === 'month'"
+            [disabled]="view === 'month'"
+          >
+          </button>
+          <button
+            class="btn bi bi-calendar3-week icon shadow-none"
+            (click)="changeView('week')"
+            [class.active]="view === 'week'"
+            [disabled]="view === 'week'"
+          >
+          </button>
+          <button *ngIf="isAuthenticated"
+            class="btn bi bi-calendar3-event icon shadow-none"
+            (click)="changeView('day')"
+            [class.active]="view === 'day'"
+            [disabled]="view === 'day'"
+          >
+          </button>
+      </div>
+    </div>
+
+
+
+    <div class="calendar" [ngSwitch]="view" style="">
+      <mwl-calendar-month-view
+        *ngSwitchCase="'month'"
+        [viewDate]="viewDate"
+        [events]="events"
+        (columnHeaderClicked)="clickedColumn = $event.isoDayNumber"
+        (dayClicked)="dateChanged($event.day.date);openDialog($event.day.date);"
+        [locale]="locale"
+        [weekStartsOn]="weekStartsOn"
+        [weekendDays]="weekendDays"
+        [excludeDays]="excludeDays"
+        (beforeViewRender)="beforeMonthViewRender($event)"
+        [refresh]="refresh"
+        [cellTemplate]="customCellTemplate"
+      >
+      </mwl-calendar-month-view>
+      <mwl-calendar-week-view
+        *ngSwitchCase="'week'"
+        [viewDate]="viewDate"
+        [events]="events"
+        (dayHeaderClicked)="clickedDate = $event.day.date"
+        (hourSegmentClicked)="dateChanged($event.date);openDialog($event.date);"
+        [locale]="locale"
+        [weekStartsOn]="weekStartsOn"
+        [weekendDays]="weekendDays"
+        [dayStartHour]="startHour"
+        [dayEndHour]="endHour"
+        [excludeDays]="excludeDays"
+        (beforeViewRender)="beforeWeekViewRender($event)"
+        (eventClicked)="handleEvent('Clicked', $event.event)"
+        [refresh]="refreshWeek"
+        [headerTemplate]="(this.mobile) ? mobileHeaderTemplate: desktopHeaderTemplate"
+      >
+      </mwl-calendar-week-view>
+      <mwl-calendar-day-view
+        *ngSwitchCase="'day'"
+        [viewDate]="viewDate"
+        [events]="events"
+        (hourSegmentClicked)="dateChanged($event.date);openDialog($event.date);"
+        [locale]="locale"
+        [dayStartHour]="startHour"
+        [dayEndHour]="endHour"
+        [refresh]="refresh"
+        (beforeViewRender)="beforeWeekViewRender($event)"
+        (eventClicked)="handleEvent('Clicked', $event.event)"
+      >
+      </mwl-calendar-day-view>
+    </div>
+
+</div>
+
+</div>
+
+
+
+
+

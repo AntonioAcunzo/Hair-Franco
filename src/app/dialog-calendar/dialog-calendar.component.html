@@ -1,0 +1,21 @@
+<h1 mat-dialog-title >Notifica Appuntamento</h1>
+<div mat-dialog-content>
+  Salvare appuntamento in Google Calendar?
+</div>
+
+<div class="row" style="margin-top: 5%;text-align: center">
+  <div class="col-sm-6" style="text-align: center;margin-bottom: 5%">
+    <mat-button-toggle class="mat-raised-button mat-primary buttonConfirm"
+                       (click)="onSubmit();">
+      Salva
+    </mat-button-toggle>
+  </div>
+  <div class="col-sm-6" style="text-align: center">
+    <mat-button-toggle class="mat-raised-button mat-warn buttonConfirm"
+                       (click)="onCloseDialog();" >
+      Non Salvare
+    </mat-button-toggle>
+  </div>
+</div>
+
+

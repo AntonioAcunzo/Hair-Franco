@@ -1,0 +1,136 @@
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+  color: rgb(255, 255, 255);
+}
+
+.icon {
+  margin-left: 5%;
+}
+
+/*Schermo piccolo*/
+@media (max-width: 576px) {
+
+  .error{
+    font-size: 17px;
+    font-family: FontAwesome;
+    width: auto;
+    margin: 0 15% 0 15%;
+  }
+
+  .btn{
+    text-align: center;
+    margin-top: 5%;
+    background-color: #292929;
+  }
+
+  .btn-col{
+    text-align: center;
+  }
+
+  .subtitle{
+    text-align: center;
+    font-size: 20px;
+    font-family: FontAwesome;
+    margin-bottom: 2%;
+  }
+
+  .field{
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 250px;
+    min-width: 200px;
+    font-family: FontAwesome;
+  }
+
+  .details{
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 300px;
+    min-width: 200px;
+    font-family: FontAwesome;
+  }
+
+}
+
+/*Schermo grande*/
+@media (min-width: 575px) {
+  .dx{
+    margin-left: 0%;
+  }
+
+  .error{
+    font-size: 20px;
+    font-family: FontAwesome;
+    width: auto;
+    margin: 0 3% 0 3%;
+  }
+
+  .btn{
+    margin: 5% 0% 0% 5%;
+    background-color: #292929;
+  }
+
+  /*.btn::before, .btn::after{*/
+  /*  content: "";*/
+  /*  display: block;*/
+  /*  position: absolute;*/
+  /*  inset: 0;*/
+  /*  z-index: -1;*/
+  /*}*/
+
+  /*.btn::after{*/
+  /*  background-color: #292929;*/
+  /*}*/
+
+  /*.btn::before{*/
+  /*  background-image: linear-gradient(*/
+  /*  to bottom right,*/
+  /*  red,*/
+  /*  blue;*/
+  /*  );*/
+  /*  transition: transform 200ms;*/
+  /*}*/
+
+  /*.btn:hover::before, .btn:focus::before{*/
+  /*  transform: scale(1.1);*/
+  /*}*/
+
+  .details{
+    width: 100%;
+    max-width: 300px;
+    min-width: 200px;
+    margin-right: 15%;
+    margin-left: 5%;
+    padding: 0 0 0 0;
+    text-align: left;
+    font-family: FontAwesome;
+  }
+
+  .subtitle{
+    font-size: 20px;
+    font-family: FontAwesome;
+    margin-bottom: 2%;
+  }
+
+  .field{
+    width: 50%;
+    max-width: 250px;
+    min-width: 200px;
+    margin-right: 15%;
+    margin-left: 5%;
+    padding: 0 0 0 0;
+    text-align: left;
+    font-family: FontAwesome;
+  }
+
+}
+
+
+
+
+
+
+

@@ -1,0 +1,169 @@
+<!--<h2 mat-dialog-title>Install Angular</h2>-->
+<!--<mat-dialog-content class="mat-typography">-->
+<!--  <h3>Develop across all platforms</h3>-->
+<!--  <p>Learn one way to build applications with Angular and reuse your code and abilities to build-->
+<!--    apps for any deployment target. For web, mobile web, native mobile and native desktop.</p>-->
+
+<!--</mat-dialog-content>-->
+<!--<mat-dialog-actions mat-align-tabs="end">-->
+<!--  <button mat-button mat-dialog-close>Cancel</button>-->
+<!--  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>-->
+<!--</mat-dialog-actions>-->
+
+
+<!---------------------------------------------------------------------------------------------------------->
+
+<!--<h2 mat-dialog-title>{{description}}</h2>-->
+
+<!--<mat-dialog-content [formGroup]="form">-->
+
+<!--  <mat-form-field>-->
+<!--    <input matInput-->
+<!--           placeholder="Course Description"-->
+<!--           formControlName="description">-->
+<!--  </mat-form-field>-->
+
+
+<!--</mat-dialog-content>-->
+
+<!--<mat-dialog-actions>-->
+<!--  <button class="mat-raised-button"(click)="close()">Close</button>-->
+<!--  <button class="mat-raised-button mat-primary"(click)="save()">Save</button>-->
+<!--</mat-dialog-actions>-->
+
+<!---------------------------------------------------------------------------------------------------------->
+
+
+<h2 mat-dialog-title style="text-align: center; margin-bottom: 10%">PRENOTA IL TUO APPUNTAMENTO</h2>
+<mat-dialog-content class="mat-typography" [formGroup]="form" (ngSubmit)="submit()">
+
+  <div class="row">
+    <div class="col-sm-6">
+      <mat-form-field class="field">
+        <!--    <mat-label style="font-size: 20px; vertical-align: center;text-align: center;justify-content: center;">Nome</mat-label>-->
+        <input matInput placeholder="Nome" required formControlName="name" name='name' >
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field class="field">
+        <input matInput placeholder="Cognome" required formControlName="surname" name='surname'>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <mat-form-field class="field">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="email@example.com" [formControl]="email" required>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+
+      <mat-form-field class="field">
+        <mat-label>Cellulare</mat-label>
+        <input matInput placeholder="Cellulare" formControlName="number" name='number' required>
+    <!--    <mat-icon matSuffix>phone</mat-icon>-->
+    <!--    <mat-error *ngIf="number.invalid">{{getErrorMessage()}}</mat-error>-->
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+
+      <mat-form-field class="field">
+        <mat-label>Seleziona la data</mat-label>
+        <input matInput [matDatepicker]="picker" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+    <div class="col-sm-6">
+
+      <mat-form-field class="field">
+        <mat-select placeholder="Seleziona l'orario" required>
+          <mat-option *ngFor="let store of this.stores" [value]="store.name">{{store.name}}>First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+
+      <mat-form-field class="field">
+        <mat-select placeholder="Seleziona il trattamento" required>
+          <mat-option *ngFor="let treatment of this.treatments" [value]="treatment.name">{{treatment.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+  </div>
+
+
+<!--  <mat-dialog-actions style="margin-top: 10%">-->
+
+    <div class="row" style="margin-top: 10%">
+      <div class="col-sm-6" style="text-align: center;margin-bottom: 5%">
+          <mat-button-toggle class="mat-raised-button mat-primary "
+                             type="submit"
+                             (click)="onCloseDialog()"
+                             style="margin-left: 20px; margin-right: 20px"> Prenota
+          </mat-button-toggle>
+      </div>
+      <div class="col-sm-6" style="text-align: center">
+          <mat-button-toggle class="mat-raised-button mat-warn "
+                             (click)='onCloseDialog();'>Annulla
+          </mat-button-toggle>
+      </div>
+    </div>
+
+<!--  </mat-dialog-actions>-->
+
+
+
+</mat-dialog-content>
+
+
+<!--    <mat-tab label="Details">-->
+<!--      <div class="tab-content">-->
+<!--        <div class="content-container tab-content-height">-->
+<!--          <mat-form-field>-->
+<!--            <input matInput formControlName="devicename" placeholder="Enter Device name">-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <input matInput formControlName="devicedesc" placeholder="Enter Device Description">-->
+<!--          </mat-form-field>-->
+<!--          <mat-dialog-actions class="pull-right">-->
+<!--            <button mat-raised-button color="primary" (click)='matgroup.selectedIndex = 1'>Next</button>-->
+<!--          </mat-dialog-actions>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </mat-tab>-->
+
+<!--FORM LOGIN-->
+
+<!--<mat-card id="card" style="text-align: center;">-->
+<!--  <mat-card-title>-->
+<!--    login-->
+<!--  </mat-card-title>-->
+
+<!--  <mat-card-content>-->
+
+<!--    <mat-form-field>-->
+<!--      <input matInput placeholder="email">-->
+<!--    </mat-form-field><br/>-->
+
+<!--    <mat-form-field>-->
+<!--      <input matInput placeholder="password">-->
+<!--    </mat-form-field><br/>-->
+<!--    <button mat-raised-button color="primary" style="margin-right:5px;">login</button>-->
+<!--    <button mat-raised-button color="primary" style="margin-right:5px;">register</button>-->
+
+<!--  </mat-card-content>-->

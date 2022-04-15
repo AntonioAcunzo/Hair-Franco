@@ -1,0 +1,152 @@
+<div class="row">
+  <div class="col-10" style="padding: 0 0 0 0;">
+    <h1 mat-dialog-title
+        style="margin: 0 0 5% 10%;text-align: left">
+      <b>Prenota il tuo appuntamento</b>
+    </h1>
+  </div>
+  <div class="col-2" style="padding: 1% 0 0 0;text-align: right">
+    <button class="bi bi-x-circle-fill icon shadow-none"
+            (click)="onCancel()">
+    </button>
+  </div>
+</div>
+
+
+
+<!--Form-->
+<mat-dialog-content class="mat-typography" [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="form" style="">
+
+  <!--  Nome e Cognome  -->
+  <div class="row">
+    <div class="col-12 col-sm-6">
+      <mat-form-field class="field">
+        <input matInput placeholder="Nome" required formControlName="name" name='name' >
+        <mat-error *ngIf="this.form.get('name').invalid ">
+          {{getErrorMessage('email')}}
+        </mat-error>
+<!--        <mat-error *ngIf="!form.get('name').valid && form.get('name').touched">{{getErrorMessage('name')}}</mat-error>-->
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field class="field">
+        <input matInput placeholder="Cognome" formControlName="surname" name='surname'>
+        <mat-error *ngIf="this.form.get('surname').invalid ">
+          {{getErrorMessage('surname')}}
+        </mat-error>
+<!--        <mat-error *ngIf="!form.get('surname').valid && form.get('surname').touched">{{getErrorMessage('surname')}}</mat-error>-->
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!--  Email e cellulare  -->
+  <div class="row" *ngIf="!this.info.isAuthenticated">
+    <div class="col-sm-6" >
+      <mat-form-field class="field">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="email@example.com" formControlName="email" required >
+        <mat-error *ngIf="this.form.get('email').invalid ">
+          {{getErrorMessage('email')}}
+        </mat-error>
+<!--        <mat-error *ngIf="email.invalid">{{getErrorMessage('email')}}</mat-error>-->
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field class="field">
+        <mat-label>Cellulare</mat-label>
+        <input matInput placeholder="Cellulare" formControlName="number" name='number'>
+        <mat-error *ngIf="this.form.get('number').invalid ">
+          {{getErrorMessage('number')}}
+        </mat-error>
+<!--        <mat-error *ngIf="number.invalid">{{getErrorMessage('number')}}</mat-error>-->
+        <!--    <mat-icon matSuffix>phone</mat-icon>-->
+        <!--    <mat-error *ngIf="number.invalid">{{getErrorMessage()}}</mat-error>-->
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+
+      <mat-form-field class="field">
+        <mat-label>Seleziona la data</mat-label>
+        <input matInput [matDatepicker]="picker"
+               (dateChange)="onDateChange()"
+               (dateInput)="clickedDate"
+               [min]="minDate" [max]="maxDate"
+               formControlName="date"
+               [matDatepickerFilter]="myFilter"
+               required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker ></mat-datepicker>
+        <mat-error *ngIf="this.form.get('date').invalid ">
+          {{getErrorMessage('date')}}
+        </mat-error>
+<!--    <-- <mat-error *ngIf="date.invalid">{{getErrorMessage('date')}}</mat-error>-->
+      </mat-form-field>
+
+    </div>
+    <div class="col-sm-6">
+
+      <mat-form-field class="field">
+        <mat-select placeholder="Seleziona l'orario" required formControlName="hours" >
+          <mat-option *ngFor="let time of this.hoursList" [value]="time">
+          <div *ngIf="time.minutes === 0"> {{time.hours}}:{{time.minutes}}{{time.minutes}}</div>
+          <div *ngIf="time.minutes === 30"> {{time.hours}}:{{time.minutes}}</div>
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.form.get('hours').invalid ">
+          {{getErrorMessage('hours')}}
+        </mat-error>
+<!--        <mat-error *ngIf="hours.invalid">{{getErrorMessage('hours')}}</mat-error>-->
+      </mat-form-field>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6" *ngIf="this.info.isAuthenticated">
+
+      <mat-form-field class="field">
+        <mat-label>Cellulare</mat-label>
+        <input matInput placeholder="Cellulare" formControlName="number" name='number' >
+        <mat-error *ngIf="this.form.get('number').invalid ">
+          {{getErrorMessage('number')}}
+        </mat-error>
+        <!--        <mat-error *ngIf="number.invalid">{{getErrorMessage('number')}}</mat-error>-->
+        <!--    <mat-icon matSuffix>phone</mat-icon>-->
+        <!--    <mat-error *ngIf="number.invalid">{{getErrorMessage()}}</mat-error>-->
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+
+      <mat-form-field class="field">
+        <mat-select placeholder="Seleziona il trattamento"  formControlName="treatment" >
+          <mat-option *ngFor="let t of this.treatments" [value]="t.name">{{t.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.form.get('treatment').invalid ">
+          {{getErrorMessage('treatment')}}
+        </mat-error>
+<!--        <mat-error *ngIf="treatment.invalid">{{getErrorMessage('treatment')}}</mat-error>-->
+      </mat-form-field>
+
+    </div>
+  </div>
+
+
+  <div class="row" style="margin-top: 2%">
+    <div class="col-sm-12" style="text-align: center;margin-bottom: 5%">
+      <mat-button-toggle class="mat-raised-button mat-primary "
+                         type="submit"
+                         [disabled] = disabled
+                         (click)="onSubmit()"
+                         style="padding: 0 1% 0 1%; background-color: #292929"> Prenota
+      </mat-button-toggle>
+    </div>
+  </div>
+
+
+
+</mat-dialog-content>
+
+

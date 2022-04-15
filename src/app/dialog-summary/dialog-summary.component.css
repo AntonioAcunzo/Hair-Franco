@@ -1,0 +1,39 @@
+.buttonConfirm{
+  margin-top: 2%;
+  margin-bottom: 2%;
+  padding: 0 2% 0 2%;
+  background-color: #292929;
+}
+
+.close-button{
+  float: right;
+}
+
+.icon {
+  float: right;
+  font-size: 25px;
+  padding: 0 0 0 0;
+  border-width: 0;
+  border-color: rgb(239, 239, 239);
+}
+
+.text-title{
+  text-align: center;
+  padding-left: 9%;
+}
+
+
+/*Schermo piccolo*/
+@media (max-width: 575px) {
+  .text-title{
+    /*font-size: min(4vw,20px);*/
+    font-size: 17px;
+  }
+}
+
+/*Schermo grande*/
+@media (min-width: 575px) {
+  .text-title{
+    font-size: max(2vw,20px);
+  }
+}

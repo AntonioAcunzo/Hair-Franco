@@ -1,0 +1,36 @@
+mat-card {
+  min-width:200px;
+  max-width: 500px;
+  display: block;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 7%;
+}
+
+.field{
+  width: 70%;
+  margin-right: 15%;
+  margin-left: 15%;
+  margin-bottom: 2%;
+  min-width: 150px;
+}
+
+.password{
+  width: 80%;
+}
+
+.icon-eye {
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.icon {
+  margin-right: 5px;
+  font-size: 15px;
+}
+
+.mail {
+  width: 70%;
+}
+
+

@@ -1,0 +1,70 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom" >
+  <div class="container-fluid">
+    <a routerLink="/" class="navbar-brand" >
+      <img src="../../assets/img/logo3_HairFranco.png" alt="Logo Hair Franco" style="width: 40px;height: 40px;border-bottom: 0px;">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="#navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/prenota-appuntamento"
+             data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            Prenota Appuntamento
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/cancella-appuntamento"
+             data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            Cancella Appuntamento
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/trattamenti"
+             data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            Trattamenti
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/contatti"
+             data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            Contatti
+          </a>
+        </li>
+        <li *ngIf="isAuthenticated" class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/modifica-calendario"
+             data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            Modifica Aperture
+          </a>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item" routerLinkActive="active" *ngIf="!isAuthenticated">
+          <a class="nav-link active" routerLink="/login"
+             data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            Login
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated">
+          <a class="nav-link active" style="cursor: pointer;" (click)="onLogout()"
+             data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+

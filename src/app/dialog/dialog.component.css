@@ -1,0 +1,44 @@
+.field{
+  width: 70%;
+  margin-right: 15%;
+  margin-left: 15%;
+  margin-bottom: 2%;
+}
+
+.icon {
+  float: right;
+  font-size: 25px;
+  padding: 0 0 0 0;
+  border-width: 0;
+  border-color: rgb(239, 239, 239);
+  background: white;
+}
+
+.example-margin {
+  margin-left: 15%;
+  margin-top: 3%;
+  font-weight: 400;
+}
+
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+  color: rgb(255, 255, 255);
+}
+
+.mat-dialog-container {
+  width: min(300px, 80vw) !important;
+}
+
+
+
+/*Schermo piccolo*/
+@media (max-width: 576px) {
+
+  .field{
+    width: 70%;
+    margin-right: 15%;
+    margin-left: 15%;
+    margin-bottom: 0%;
+  }
+
+
+}

@@ -1,0 +1,95 @@
+<div class="container" style="text-align: center">
+  <mat-card>
+    <mat-card-title style="margin-bottom: 4%">Login</mat-card-title>
+    <div class="alert alert-danger" *ngIf="error">
+      <p>
+        <i class="'bi bi-exclamation-triangle-fill icon'"></i>
+        {{ error }}
+      </p>
+    </div>
+    <div *ngIf="isLoading" style="text-align: center;">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="!isLoading" >
+      <mat-form-field class="field" appearance="outline">
+        <span class="">
+          <i class="bi bi-envelope-fill icon"></i>
+        </span>
+        <input matInput
+               class="mail"
+               placeholder="Email"
+               id="email"
+               name="email"
+               formControlName="email"
+               required>
+        <mat-error *ngIf="this.form.get('email').hasError('required')">
+          Inserire mail
+        </mat-error>
+        <mat-error *ngIf="this.form.get('email').hasError('email')">
+          Email non valida
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="field" appearance="outline">
+        <i class="bi bi-lock-fill icon"></i>
+        <input matInput
+               class="password"
+               [type]="secret ? 'password' : 'text'"
+               placeholder="Password"
+               id="password"
+               name="password"
+               formControlName="password"
+               required>
+        <i [className]="secret ? 'bi bi-eye-slash-fill icon-eye' : 'bi bi-eye-fill icon-eye'"
+           class="bi bi-eye-slash-fill icon-eye"
+           (click)="showPassword()"></i>
+        <mat-error *ngIf="this.form.get('password').hasError('required')">
+          Inserire Password
+        </mat-error>
+      </mat-form-field>
+      <div style="text-align: center">
+        <button class="btn btn-primary"
+                style="background-color: #292929">
+          Accedi
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--          <label for="email">E-Mail</label>-->
+<!--          <input-->
+<!--            type="email"-->
+<!--            id="email"-->
+<!--            class="form-control"-->
+<!--            style="margin-bottom: 2%"-->
+<!--            ngModel-->
+<!--            name="email"-->
+<!--            required-->
+<!--            email-->
+<!--          />-->
+<!--          <label for="password">Password</label>-->
+<!--          <input-->
+<!--            type="password"-->
+<!--            id="password"-->
+<!--            class="form-control"-->
+<!--            ngModel-->
+<!--            name="password"-->
+<!--            required-->
+<!--            minlength="6"-->
+<!--          />-->

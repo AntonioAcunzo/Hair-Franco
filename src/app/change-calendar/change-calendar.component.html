@@ -1,0 +1,155 @@
+<div class="title">
+  Modifica apertura negozio
+</div>
+<hr>
+
+
+<div class="row" >
+  <div class="col-sm-6" style="overflow-y: hidden;overflow-x: hidden">
+    <mat-dialog-content class="mat-typography" [formGroup]="formClosure">
+      <div class="row">
+        <h2 class="subtitle"> Inserire chiusura </h2>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field class="field" appearance="outline" >
+            <mat-label>Data</mat-label>
+            <mat-date-range-input [rangePicker]="picker"
+                                  [min]="minDate" [max]="maxDate"
+                                  [dateFilter]="myFilter">
+              <input matStartDate
+                     placeholder="Data iniziale"
+                     formControlName="startDateClose">
+              <input matEndDate
+                     placeholder="Data finale"
+                     formControlName="endDateClose">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field class="hours" appearance="outline">
+            <mat-select placeholder="Orario Iniziale" required formControlName="startTimeClose"
+                        (selectionChange)="onTimeChange(formClosure, 'startTimeClose', 'endTimeClose')">
+              <mat-option *ngFor="let time of this.hoursList" [value]="time">
+                <div *ngIf="time.hours === 0"> Tutto il giorno</div>
+                <div *ngIf="time.hours !== 0 && time.minutes === 0"> {{time.hours}}:{{time.minutes}}{{time.minutes}}</div>
+                <div *ngIf="time.hours !== 0 && time.minutes === 30"> {{time.hours}}:{{time.minutes}}</div>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field class="hours end" appearance="outline">
+            <mat-select placeholder="Orario Finale" required formControlName="endTimeClose">
+              <mat-option *ngFor="let time of this.hoursListEnd" [value]="time">
+                <div *ngIf="time.hours !== 0 && time.minutes === 0"> {{time.hours}}:{{time.minutes}}{{time.minutes}}</div>
+                <div *ngIf="time.hours !== 0 && time.minutes === 30"> {{time.hours}}:{{time.minutes}}</div>
+                <div *ngIf="time.hours === 0"> Fine del giorno</div>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div class="row">
+          <mat-button-toggle class="mat-raised-button mat-primary btn"
+                             type="submit"
+                             [disableRipple]="false"
+                             (click)="insertHoliday()"
+                             >
+<!--            [disabled]=this.formClosure.invalid-->
+            Inserisci
+          </mat-button-toggle>
+      </div>
+
+      <div class="row" >
+        <div [className]="insertedMessage === 'Negozio chiuso nel periodo selezionato!'
+        ? 'alert alert-primary message' : 'alert alert-danger message'"
+             *ngIf="insertedMessage">
+          <i [className]="insertedMessage === 'Negozio chiuso nel periodo selezionato!'
+          ? 'bi bi-check-circle-fill icon' : 'bi bi-exclamation-triangle-fill icon'"></i>
+          {{ insertedMessage }}
+        </div>
+      </div>
+    </mat-dialog-content>
+  </div>
+
+  <div class="col-sm-6">
+    <mat-dialog-content class="mat-typography" [formGroup]="formOpening">
+      <div class="row">
+        <h2 class="subtitle"> Rimuovere chiusura </h2>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field class="field" appearance="outline">
+            <mat-label>Selezionare la data</mat-label>
+            <mat-date-range-input [rangePicker]="pickerOpen"
+                                  [min]="minDate" [max]="maxDate"
+                                  [dateFilter]="myFilter">
+              <input matStartDate
+                     placeholder="Data iniziale"
+                     formControlName="startDateOpen">
+              <input matEndDate
+                     placeholder="Data finale"
+                     formControlName="endDateOpen">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="$any(pickerOpen)"></mat-datepicker-toggle>
+            <mat-date-range-picker #pickerOpen></mat-date-range-picker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field class="hours" appearance="outline">
+            <mat-select placeholder="Orario Iniziale" required formControlName="startTimeOpen"
+                        (selectionChange)="onTimeChange(formOpening, 'startTimeOpen', 'endTimeOpen')">
+              <mat-option *ngFor="let time of this.hoursList" [value]="time">
+                <div *ngIf="time.hours === 0"> Tutto il giorno</div>
+                <div *ngIf="time.hours !== 0 && time.minutes === 0"> {{time.hours}}:{{time.minutes}}{{time.minutes}}</div>
+                <div *ngIf="time.hours !== 0 && time.minutes === 30"> {{time.hours}}:{{time.minutes}}</div>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field class="hours end" appearance="outline" >
+            <mat-select placeholder="Orario Finale" required formControlName="endTimeOpen" >
+              <mat-option *ngFor="let time of this.hoursListEnd" [value]="time">
+                <div *ngIf="time.hours !== 0 && time.minutes === 0"> {{time.hours}}:{{time.minutes}}{{time.minutes}}</div>
+                <div *ngIf="time.hours !== 0 && time.minutes === 30"> {{time.hours}}:{{time.minutes}}</div>
+                <div *ngIf="time.hours === 0"> Fine del giorno</div>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <mat-button-toggle class="mat-raised-button mat-primary btn"
+                           type="submit"
+                           [disableRipple]="false"
+                           (click)="removeHoliday()"
+                           >
+<!--          [disabled]=this.formOpening.invalid-->
+          Rimuovi
+        </mat-button-toggle>
+      </div>
+      <div class="row">
+        <div [className]="removedMessage === 'Negozio aperto nel periodo selezionato!'
+        ? 'alert alert-primary message' : 'alert alert-danger message'" *ngIf="removedMessage">
+          <i [className]="removedMessage === 'Negozio aperto nel periodo selezionato!'
+          ? 'bi bi-check-circle-fill icon' : 'bi bi-exclamation-triangle-fill icon'"></i>
+          {{ removedMessage }}
+        </div>
+      </div>
+    </mat-dialog-content>
+  </div>
+</div>
+
+
+
+

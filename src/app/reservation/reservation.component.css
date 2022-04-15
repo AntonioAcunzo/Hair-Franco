@@ -1,0 +1,125 @@
+.cal-cell-top {
+  min-height: 10%;
+  flex: 1;
+}
+
+.cal-month-view .cal-day-cell.cal-today .cal-day-number {
+  font-size: 1.2em !important;
+}
+
+
+.col-4{
+  padding: 0 0 0 0 ;
+  text-align: right;
+}
+
+.icon {
+  padding: 0 3% 0 3%;
+}
+
+.col-8{
+  padding: 0 0 0 0 ;
+}
+
+
+
+
+
+
+
+/*Schermo piccolo*/
+@media (max-width: 575px) {
+  .label-avaibility{
+    text-align: center;
+    font-size: .75em;
+  }
+  .custom-btn {
+    width: auto;
+    font-size: max(1.3vw, 10px);
+    padding-left: 0.1rem ;
+    padding-right: 0.1rem ;
+
+  }
+  .today-btn{
+    width: 50% !important;
+    font-size: 2vw;
+    padding-left: 0.5rem ;
+    padding-right: 0.5rem ;
+  }
+  .label-month{
+    text-transform: uppercase;
+    font-size: 13px;
+  }
+
+  .icon {
+    font-size: 20px;
+  }
+
+  .calendar{
+    margin: 0 1% 2% 1% ;
+    width: 98%;
+  }
+
+  .row-month{
+    margin-left: 1% ;
+    text-align: left;
+  }
+
+  .col-4{
+    padding-right: 3%;
+  }
+}
+
+
+
+
+/*Schermo grande*/
+@media (min-width: 575px) {
+  .label-avaibility{
+    text-align: center;
+    font-size: 1em;
+  }
+  .custom-btn {
+    /*width: 50% !important;*/
+    width: auto;
+    height: auto;
+    margin-bottom: auto;
+    margin-top: auto;
+    font-size: min(1.8vw, 17px);
+    vertical-align: center;
+    /*max-font-size: 17px;*/
+    /*min-font-size: 50px;*/
+    padding-left: 0.5rem ;
+
+  }
+  .today-btn{
+    width: 50% !important;
+    font-size: 1.5vw;
+    min-font-size: 50px;
+    padding-left: 0.5rem ;
+  }
+
+  .icon {
+    font-size: 35px;
+
+  }
+
+  .label-month{
+    text-transform: uppercase;
+    font-size:  min(1.8vw, 20px);
+  }
+
+  .calendar{
+    margin: 0 5% 5% 5% ;
+    width: 90%;
+  }
+
+  .row-month{
+    margin-left: 5% ;
+    text-align: left;
+  }
+
+  .col-4{
+    padding-right: 6%;
+  }
+}

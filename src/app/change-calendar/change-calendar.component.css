@@ -1,0 +1,73 @@
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+  color: rgb(255, 255, 255);
+}
+
+.icon {
+  margin-right: 1%;
+  font-size: 20px;
+}
+
+.subtitle{
+  font-size: 23px;
+  font-family: FontAwesome;
+  margin-left: 5%
+}
+
+.field{
+  min-width:200px;
+  max-width: 300px;
+  display: block;
+  width: 70%;
+  margin-left:15%;
+  margin-right:auto;
+}
+
+.hours{
+  display: block;
+  min-width:70px;
+  max-width: 300px;
+  width: 70%;
+  margin-left: 15%;
+  margin-right:auto;
+}
+
+@media (max-width: 605px) {
+  .field{
+    display: block;
+    width: 70%;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .hours{
+    display: block;
+    min-width:200px;
+    max-width: 300px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+}
+
+@media (min-width: 605px) {
+  .end{
+    margin-left: 0;
+  }
+}
+
+
+.btn{
+  width: auto;
+  margin: 2% auto 5% auto;
+  background-color: #292929;
+}
+
+.col-sm-6{
+  padding: 0 0 0 0;
+}
+
+.message{
+  width: 86%;
+  margin: 2% auto 5% auto;
+}

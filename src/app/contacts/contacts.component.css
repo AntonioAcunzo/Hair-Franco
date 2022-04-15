@@ -1,0 +1,35 @@
+.contacts_box {
+  width: auto;
+  background: #ffffff;
+  padding: 5% 5% 5% 3%;
+  overflow: hidden;
+  min-width: 200px;
+  display: block;
+}
+
+.map {
+  height:300px;
+  max-width: 500px;
+  min-width: 200px;
+  display: block;
+  padding: 5% 5% 5% 3%;
+  overflow: hidden;
+}
+
+.contacts {
+  font-family: FontAwesome;
+  font-size: 18px;
+  top: 0;
+  padding: 10px 10px 5px 10px;
+}
+
+.last{
+  padding: 10px 10px 30px 10px;
+}
+
+.icon {
+  margin-right: 1%;
+}
+
+
+

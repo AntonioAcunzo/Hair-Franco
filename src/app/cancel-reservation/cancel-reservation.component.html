@@ -1,0 +1,137 @@
+<div class="title">
+  Cancella Prenotazione
+</div>
+<hr>
+
+<form [formGroup]="form" class="form">
+
+  <!--  Title -->
+  <div class="row">
+    <div class="col-12 col-sm-6">
+      <div class="details subtitle">Inserire i dati della prenotazione</div>
+    </div>
+  </div>
+
+  <!--  Email e cellulare-->
+  <div class="row">
+
+    <div class="col-12 col-sm-6">
+      <mat-form-field class="field">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="email@example.com"
+               id="email"
+               name="email"
+               formControlName="email"
+               (change) = "clearResult()"
+               required>
+        <mat-error *ngIf="this.form.get('email').invalid ">
+          {{getErrorMessage('email')}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-sm-6" >
+      <mat-form-field class="field dx">
+        <mat-label>Cellulare</mat-label>
+        <input matInput placeholder="Cellulare"
+               id="number"
+               name="number"
+               formControlName="number"
+               (change)="clearResult()"
+               required>
+        <mat-error *ngIf="this.form.get('number').invalid">{{getErrorMessage('number')}}</mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <!--  Data e Orario-->
+  <div class="row">
+
+    <div class="col-12 col-sm-6">
+      <mat-form-field class="field">
+        <mat-label>Seleziona la data</mat-label>
+        <input matInput
+               [min]="minDate"
+               [matDatepicker]="picker"
+               formControlName="date"
+               (change) = "clearResult()"
+               required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker ></mat-datepicker>
+        <mat-error *ngIf="this.form.get('date').invalid">{{getErrorMessage('date')}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-sm-6">
+      <mat-form-field class="field dx" required>
+        <mat-select placeholder="Seleziona l'orario" required formControlName="hours">
+          <mat-option *ngFor="let time of this.hoursList" [value]="time" (change) = "clearResult()">
+            <div *ngIf="time.minutes === 0"> {{time.hours}}:{{time.minutes}}{{time.minutes}}</div>
+            <div *ngIf="time.minutes === 30"> {{time.hours}}:{{time.minutes}}</div>
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.form.get('hours').invalid">{{getErrorMessage('hours')}}</mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <!--  Dettagli Prenotazione trovata-->
+  <div class="row" *ngIf="founded">
+    <div class="col-12 col-sm-6">
+      <div mat-dialog-content class="details" >
+        <b>Nome:</b> {{this.reservation.getName()}}<br>
+        <b>Cognome:</b> {{this.reservation.getSurname()}}<br>
+        <b>Email:</b> {{this.reservation.getEmail()}}<br>
+        <b>Cellulare:</b> {{this.reservation.getNumber()}}<br>
+        <b>Data:</b> {{this.reservation.getDate().toLocaleDateString()}}<br>
+        <b>Orario:</b> {{this.reservation.getTime().hours}}:{{this.reservation.getTime().minutes/10}}0<br>
+        <b>Trattamento:</b> {{this.reservation.getTreatment()}}<br>
+      </div>
+    </div>
+  </div>
+
+  <!--  Button Find/Cancel-->
+  <div class="row" >
+    <div class="col-12 col-sm-6 btn-col">
+      <mat-button-toggle class="mat-raised-button mat-primary btn"
+                         type="submit"
+                         (click)="findReservation()"
+                         *ngIf="!founded">
+        Trova Prenotazione
+        <i class="bi bi-search icon"></i>
+      </mat-button-toggle>
+      <mat-button-toggle class="mat-raised-button mat-primary btn"
+                         type="submit"
+                         (click)="deleteReservation()"
+                         *ngIf="founded">
+        Cancella Prenotazione
+        <i class="bi bi-trash icon"></i>
+      </mat-button-toggle>
+    </div>
+  </div>
+
+  <!--  Error Message -->
+  <div class="row" >
+    <div class="col-12" style="text-align: center; margin-top: 5%">
+      <div class="alert alert-danger error" *ngIf="errorMessage">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
+
+  <!--  Confirm Message -->
+  <div class="row" >
+    <div class="col-12 col-sm-12" style="margin-bottom: 2%; text-align: center">
+      <div class="alert alert-success error" *ngIf="confirmMessage">
+        <i class="bi bi-check-circle-fill"></i>
+        {{ confirmMessage }}
+      </div>
+    </div>
+  </div>
+
+
+</form>
+
