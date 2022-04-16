@@ -1,24 +1,20 @@
 import {Injectable, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
 
-import { Reservation } from '../shared/reservation.model';
-import { Holiday } from '../shared/holiday.model';
+import { Reservation } from './reservation.model';
+import { Holiday } from './holiday.model';
 import {ReservationsListService} from "../reservation/reservations-list.service";
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService implements OnInit{
-  constructor(private http: HttpClient, private reservationService: ReservationsListService) {
-    console.log("Servizio Data Storage");
-  }
 
-  ngOnInit() {
-    //console.log("ciao sono il servizio Data Storage");
-  }
+  constructor(private http: HttpClient,
+              private reservationService: ReservationsListService) { }
 
+  ngOnInit() {}
 
+  // Store reservation on online database
   storeReservation(reservations: Reservation[]) {
-    //const reservations = this.reservationService.getReservations();
     this.http
       .put(
         'https://hair-franco-default-rtdb.europe-west1.firebasedatabase.app/reservations.json',
@@ -29,6 +25,7 @@ export class DataStorageService implements OnInit{
       });
   }
 
+  // Store holiday on online database
   storeHoliday(holidays: Holiday[]){
     console.log("Store holiday")
     //const holidays = this.reservationService.getHolidays();
@@ -43,51 +40,7 @@ export class DataStorageService implements OnInit{
 
   }
 
-  // fetchReservation() {
-  //   return this.http
-  //     .get<Reservation[]>(
-  //       'https://hair-franco-default-rtdb.europe-west1.firebasedatabase.app/reservations.json'
-  //     )
-  //     .pipe(
-  //       map(reservations => {
-  //         return reservations.map(recipe => {
-  //           // return {
-  //           //   ...recipe,
-  //           //   ingredients: recipe.ingredients ? recipe.ingredients : []
-  //           // };
-  //         });
-  //       }),
-  //       tap(recipes => {
-  //         this.recipeService.setRecipes(recipes);
-  //       })
-  //     )
-  // }
-
-  // fetchReservations() {
-  //   return this.http
-  //     .get<Reservation[]>(
-  //       'https://hair-franco-default-rtdb.europe-west1.firebasedatabase.app/reservations.json'
-  //     )
-  //     .pipe(
-  //       map(reservations => {
-  //         return reservations.map(reservation => {
-  //           return {
-  //             reservation
-  //           };
-  //         })
-  //       }),
-  //         tap(reservations => {
-  //           console.log(reservations)
-  //           this.reservationService.setReservations(reservations);
-  //         })
-  //       )
-  //     // .subscribe(response => {
-  //     //   console.log(response);
-  //     //   this.reservationService.setReservations(response);
-  //     //   //return response;
-  //     // });
-  // }
-
+  // Fetch holidays on online database
   fetchHolidays() {
     return this.http
       .get<any[]>(
@@ -95,10 +48,12 @@ export class DataStorageService implements OnInit{
       )
       .subscribe(response => {
         //console.log(response);
-        this.reservationService.setHolidays(response);
+        if(response !== null)
+          this.reservationService.setHolidays(response);
       });
   }
 
+  // Fetch reservations on online database
   fetchReservations() {
     return this.http
       .get<any[]>(

@@ -1,4 +1,4 @@
-import {Inject, NgModule} from '@angular/core';
+import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,11 +16,9 @@ import { CalendarHeaderComponent } from './demo-utils/calendar-header/calendar-h
 import {CommonModule, registerLocaleData} from '@angular/common';
 import localeIt from '@angular/common/locales/it';
 import {ReservationsListService} from "./reservation/reservations-list.service";
-import { ReservationStartComponent } from './reservation/reservation-start/reservation-start.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatListModule} from "@angular/material/list";
-import {DialogContent, DialogFormComponent} from './dialog-form/dialog-form.component';
-import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dialog";
+import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 import {OverlayModule} from "@angular/cdk/overlay";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -32,7 +30,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatInputModule} from "@angular/material/input";
 import {MatExpansionModule} from "@angular/material/expansion";
-import {MatDatepickerModule, MatDateRangePicker} from "@angular/material/datepicker";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatGridListModule} from "@angular/material/grid-list";
@@ -51,13 +49,11 @@ import {MAT_DATE_LOCALE, MatNativeDateModule, MatRippleModule} from "@angular/ma
 import {MatSliderModule} from "@angular/material/slider";
 import { DialogComponent } from './dialog/dialog.component';
 import { DialogSummaryComponent } from './dialog-summary/dialog-summary.component';
-import { DialogCancelComponent } from './dialog-cancel/dialog-cancel.component';
 import { AuthComponent } from './auth/auth.component';
 import {LoadingSpinnerComponent} from "./shared/loading-spinner/loading-spinner.component";
 import {HttpClientModule} from "@angular/common/http";
 import { ChangeCalendarComponent } from './change-calendar/change-calendar.component';
 import { CancelReservationComponent } from './cancel-reservation/cancel-reservation.component';
-import { DialogCalendarComponent } from './dialog-calendar/dialog-calendar.component';
 
 
 
@@ -72,17 +68,12 @@ registerLocaleData(localeIt);
     TreatmentsListComponent,
     ReservationComponent,
     CalendarHeaderComponent,
-    ReservationStartComponent,
-    DialogFormComponent,
-    DialogContent,
     DialogComponent,
     DialogSummaryComponent,
-    DialogCancelComponent,
     AuthComponent,
     LoadingSpinnerComponent,
     ChangeCalendarComponent,
     CancelReservationComponent,
-    DialogCalendarComponent,
   ],
   imports: [
     BrowserModule,
@@ -142,8 +133,8 @@ registerLocaleData(localeIt);
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'},],
     // {provide: DateAdapter, useClass: MyDateAdapter }
   // , {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
-  exports: [DialogContent],
-  entryComponents: [DialogContent],
+  exports: [],
+  entryComponents: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

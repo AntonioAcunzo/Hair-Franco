@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Inject, OnDestroy, OnInit, Optional, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, Optional} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Treatment} from "../shared/treatment.model";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
@@ -73,42 +73,14 @@ export class DialogComponent implements OnInit,OnDestroy {
     private dialogRefCalendar: MatDialogRef<DialogSummaryComponent>,
     private treatmentsService: TreatmentsListService,
     private reservationService: ReservationsListService,
-    // private signInService: GoogleSigninService,
-    // private signInService1: GoogleSigninServicee,
-    // private calendarService: CalendarService,
-    // private googleService: GoogleService,
-    //private calendarGoogleService: CalendarGoogleService,
     private ref: ChangeDetectorRef,
     private dataStorageService: DataStorageService,
 
-    private google: GoogleApiService,
-    @Optional() @Inject(MAT_DIALOG_DATA) public info: DialogData
-  ) {
-
-  }
+    @Optional() @Inject(MAT_DIALOG_DATA) public info: DialogData) {}
 
   // Initialization
   ngOnInit() {
     this.view = this.info.view;
-
-    //decommentare solo questo
-    //this.signInService1.observable().subscribe(user => {
-      //this.user = user;
-      //this.ref.detectChanges();
-      //console.log("Change :" + this.ref.detectChanges());
-    //});
-
-    // this.signInService1.observableEvent().subscribe(eventEntered => {
-    //   this.eventEntered = eventEntered;
-    //
-    //   //console.log("Change :" + this.ref.detectChanges());
-    // });
-
-    // this.googleService.observable().subscribe(user => {
-    //   this.user = user;
-    //   //this.ref.detectChanges();
-    //   //console.log("Change :" + this.ref.detectChanges());
-    // });
 
     this.treatments = this.treatmentsService.getTreatmet();
     const currentYear = new Date().getFullYear();
@@ -137,10 +109,8 @@ export class DialogComponent implements OnInit,OnDestroy {
         }
       );
 
-    //this.time = '';
     this.createForm();
     this.uploadHours();
-
 
   }
 
@@ -163,7 +133,6 @@ export class DialogComponent implements OnInit,OnDestroy {
       return ;
     }
     const day = d.getDay();
-    //const day = this.form.value.date.getDay();
     // Prevent Saturday and Sunday from being selected.
     if (this.reservationService.getMondayWork()){
       return day !== 0 ;
@@ -275,25 +244,14 @@ export class DialogComponent implements OnInit,OnDestroy {
     this.dialogRef.close(this.form);
   }
 
-  //
+
   onCancel(){
-    console.log("Cliccato su ANNULLA")
-    //console.log("disabled: ",this.form.disabled)
-    // if(this.form.disabled){
-    //   //this.google.revokeAllScopes();
-    //   this.google.signOut();
-    //
-    // }
     this.form = null;
     this.onCloseDialog()
   }
 
-
-
   // Submit the form
   onSubmit() {
-    console.log('Prenotazione Effettuata');
-    console.log(this.form)
 
     this.form.markAllAsTouched();
 
@@ -307,69 +265,16 @@ export class DialogComponent implements OnInit,OnDestroy {
       this.createDateForReservation(),
       this.form.value.treatment)
 
-    console.log(res);
     this.reservationService.addReservation(res);
     this.dataStorageService.storeReservation(this.reservations);
-    console.log(this.reservationService.getReservations());
     this.onCloseDialog();
 
-    // Prenotazione da salvare su Google Calendar
-    // if(this.form.value.saveEvent){
-    //   this.disabled = true;
-    //   this.form.disable();
-    //
-    //   var event = this.createEvent();
-    //   this.google.init(event)
-    //     .then(() => {
-    //       console.log("Finito inserimento evento!");
-    //       this.reservationService.addReservation(res);
-    //       this.dataStorageService.storeReservation(this.reservations);
-    //       this.onCloseDialog();
-    //     })
-    //     .catch(() => {
-    //       console.log("inserimento evento fallito!");
-    //       this.onCloseDialog();
-    //     });
-    // }
-    // else{
-    //
-    // }
-
-
-    //this.dialogRef.close(this.form.value);
-
-    //this.openDialogSummary();
-
-    //////this.onCloseDialog();
-
-
-    //this.openDialogSummary();
-
-
-    //console.log(this.reservationService.getReservations());
-    //console.log(this.reservations);
   }
 
-
-  prepare(){
-    this.google.init({});
-  }
-
-  // //
-  // disableForm(): void{
-  //   this.disabled = true;
-  //   this.form.disable();
+  // prepare(){
+  //   this.google.init({});
   // }
 
-
-  // getCalendarList() {
-  //   this.calendarGoogleService.getCalendarList().then(
-  //     (response) => {
-  //       this.calendarList = response;
-  //       console.log(this.calendarList);
-  //     }
-  //   )
-  // }
 
   // Returns a date created from the completed fields of the form
   createDateForReservation(): Date{
@@ -379,70 +284,6 @@ export class DialogComponent implements OnInit,OnDestroy {
       + this.form.value.hours.hours,
       + this.form.value.hours.minutes);
   }
-
-
-  // createEvent(): gapi.client.calendar.Event {
-  //
-  //   // let event = {
-  //   //   'summary': 'Appuntamento Hair Franco',
-  //   //   'location': 'Viale Macallè, 10/C, 51100 Pistoia PT',
-  //   //   'description': 'Prenotazione effettuata da webApp',
-  //   //   'start': {
-  //   //     'dateTime': '2022-02-22T09:00:00+01:00',
-  //   //     'timeZone': 'Europe/Rome',
-  //   //   },
-  //   //   'end': {
-  //   //     'dateTime': '2022-02-22T10:00:00+01:00',
-  //   //     'timeZone': 'Europe/Rome',
-  //   //   },
-  //   //   // 'recurrence': [
-  //   //   //   'RRULE:FREQ=DAILY;COUNT=2'
-  //   //   // ],
-  //   //   // 'attendees': [
-  //   //   //   {'email': 'lpage@example.com'},
-  //   //   //   {'email': 'sbrin@example.com'},
-  //   //   // ],
-  //   //   // 'reminders': {
-  //   //   //   'useDefault': false,
-  //   //   //   'overrides': [
-  //   //   //     {'method': 'email', 'minutes': 24 * 60},
-  //   //   //     {'method': 'popup', 'minutes': 10},
-  //   //   //   ],
-  //   //   // },
-  //   // };
-  //   //let dateStart = ;
-  //
-  //   let event = {
-  //     'summary': 'Appuntamento Hair Franco',
-  //     'location': 'Viale Macallè, 10/C, 51100 Pistoia PT',
-  //     'description': 'Prenotazione effettuata da webApp',
-  //     'start': {
-  //       'dateTime': this.prepareDate(this.createDateForReservation())[0],  //'2022-02-22T09:00:00+01:00',
-  //       'timeZone': 'Europe/Rome',
-  //     },
-  //     'end': {
-  //       'dateTime': this.prepareDate(this.createDateForReservation())[1],//'2022-02-22T10:00:00+01:00',
-  //       'timeZone': 'Europe/Rome',
-  //     },
-  //   };
-  //   return event;
-  // }
-
-  // prepareDate(date: Date):string[]{
-  //   //console.log("-------------")
-  //   date.setHours(date.getHours()+1);
-  //   let isoStringStart = date.toISOString();
-  //   date.getMinutes() == 0 ? date.setMinutes(30) : date.setMinutes(0) && date.setHours(date.getHours()+1);
-  //   let isoStringEnd = date.toISOString();
-  //   //console.log(isoStringStart);
-  //   //console.log(isoStringEnd);
-  //   let index = isoStringStart.indexOf('.')
-  //   let indexEnd = isoStringEnd.indexOf('.')
-  //   //console.log(index)
-  //   //console.log([isoStringStart.substring(0,index),isoStringEnd.substring(0,index)])
-  //   return [isoStringStart.substring(0,index),isoStringEnd.substring(0,index)]
-  // }
-
 
   // Function to handle errors in form fields
   getErrorMessage(s : String): string {
@@ -456,6 +297,7 @@ export class DialogComponent implements OnInit,OnDestroy {
       case 'number':
         if (this.form.get('number').hasError('required')) return 'Inserire numero di cellulare.';
         if (this.form.get('number').hasError('pattern'))  return 'Inserire numero di cellulare valido.';
+        return '';
       case 'date':
         return (this.form.get('date').hasError('required')) ? 'Selezionare una data' : 'Data non valida';
       case 'hours':
@@ -464,43 +306,7 @@ export class DialogComponent implements OnInit,OnDestroy {
         return (this.form.get('treatment').hasError('required')) ? 'Selezionare un trattamento' : '';
     }
 
-
-    // if (s == 'name')
-    //   return (this.form.get('name').hasError('required')) ? 'Inserire un nome' : '';
-    // if (s == 'surname')
-    //   return (this.form.get('surname').hasError('required')) ? 'Inserire un cognome' : '';
-    // if (s == 'email')
-    //   return (this.form.get('email').hasError('required')) ? 'Inserire una mail.' : 'Email non valida.';
-    // if (s == 'number'){
-    //   if (this.form.get('number').hasError('required')) return 'Inserire numero di cellulare.';
-    //   if (this.form.get('number').hasError('pattern'))  return 'Inserire numero di cellulare valido.';
-    // }
-    // if (s == 'date')
-    //   return (this.form.get('date').hasError('required')) ? 'Selezionare una data' : 'Data non valida';
-    // if (s == 'hours')
-    //   return (this.form.get('hours').hasError('required')) ? 'Selezionare un orario' : '';
-    // if (s == 'treatment')
-    //   return (this.form.get('treatment').hasError('required')) ? 'Selezionare un trattamento' : '';
   }
-
-  // resolveAfter2Seconds(x) {
-  //   x = 5;
-  //   return new Promise(resolve => {
-  //     setTimeout(() => {
-  //       resolve(x);
-  //     }, 2000);
-  //   });
-  // }
-  //
-  // async getValueWithAsync() {
-  //   const value = <number>await this.resolveAfter2Seconds(20);
-  //   console.log(`async result: ${value}`);
-  // }
-
-
-  // signOut(){
-  //   //this.signInService.signOut();
-  // }
 
   // Close the subscriptions
   ngOnDestroy(): void {
