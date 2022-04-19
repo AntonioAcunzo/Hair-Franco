@@ -10,8 +10,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-
-
 ## List of installed packages
 
 The complete list can be viewed in the package.json file.
@@ -23,5 +21,8 @@ There are some of most important:
 - types/gapi.auth2
 - @types/gapi.client.calendar
 
+## Try it!
+
+You can try the web app at the following web address : https://hair-franco.web.app/
     
 
