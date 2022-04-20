@@ -2,6 +2,10 @@
   color: rgb(255, 255, 255);
 }
 
+::ng-deep .mat-dialog-container {
+  overflow-x: hidden !important;
+}
+
 .icon {
   margin-right: 1%;
   font-size: 20px;

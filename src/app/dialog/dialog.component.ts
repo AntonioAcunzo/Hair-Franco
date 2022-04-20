@@ -119,7 +119,7 @@ export class DialogComponent implements OnInit,OnDestroy {
     this.form = new FormGroup({
       'name' : new FormControl('', Validators.required),
       'surname' : new FormControl('', Validators.required),
-      'email' : new FormControl('', [Validators.required, Validators.email]),
+      'email' : new FormControl('email@email.com', [Validators.required, Validators.email]),
       'number' : new FormControl('',[Validators.required, Validators.pattern("^((\\+39-?)|0)?[0-9]{10}$")]),
       'date' : new FormControl(this.clickedDate, [Validators.required]),
       'hours' : new FormControl('', [Validators.required]),
@@ -254,8 +254,14 @@ export class DialogComponent implements OnInit,OnDestroy {
   onSubmit() {
 
     this.form.markAllAsTouched();
+    console.log(" - email : " + this.form.value.email);
+    //if (this.info.isAuthenticated)
+    //  this.form.controls['email'].value = 'email@email.com';
+    //this.form.value.email = 'email@email.com'
 
     if(this.form.invalid) return;
+
+    console.log(" - email : " + this.form.value.email);
 
     var res = new Reservation(
       this.form.value.name,

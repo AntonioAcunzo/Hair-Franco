@@ -93,7 +93,7 @@ export class DialogSummaryComponent implements OnInit {
   prepareDate(date: Date): string[]{
     date.setHours(date.getHours() + 2);
     let isoStringStart = date.toISOString();
-    date.getMinutes() == 0 ? date.setMinutes(30) : date.setMinutes(0) && date.setHours(date.getUTCHours()+1);
+    date.getMinutes() == 0 ? date.setMinutes(30) : date.setMinutes(0) && date.setHours(date.getHours()+3);
     let isoStringEnd = date.toISOString();
     let index = isoStringStart.indexOf('.')
     return [isoStringStart.substring(0,index),isoStringEnd.substring(0,index)]
