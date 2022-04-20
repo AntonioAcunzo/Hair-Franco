@@ -417,22 +417,23 @@ export class ReservationComponent implements OnInit, OnDestroy {
   // Open the dialog with the reservation details
   reservationDetails(event: CalendarEvent): void{
     let reservation = this.reservations[event.id];
-    this.dialogSummary = this.dialog.open(DialogSummaryComponent,{
-      disableClose: false,
-      height: '55vh',
-      width: '75vw',
-      data : {
-        name : reservation.getName(),
-        surname : reservation.getSurname(),
-        email : reservation.getEmail(),
-        number : reservation.getNumber(),
-        date : reservation.getDate(),
-        hours: reservation.getTime(),
-        treatment : reservation.getTreatment(),
-        loggedIn: this.isAuthenticated,
-        insertion: this.insertion
-      }
+    this.dialogSummary = this.dialog.open(DialogSummaryComponent, {
+        disableClose: false,
+        height: '55vh',
+        width: '75vw',
+        data: {
+          name: reservation.getName(),
+          surname: reservation.getSurname(),
+          email: reservation.getEmail(),
+          number: reservation.getNumber(),
+          date: reservation.getDate(),
+          hours: reservation.getTime(),
+          treatment: reservation.getTreatment(),
+          loggedIn: this.isAuthenticated,
+          insertion: this.insertion
+        }
     });
+
     this.dialogSummary.afterClosed().subscribe(() => {
       this.refreshEvent();
       this.refreshView();
@@ -442,22 +443,42 @@ export class ReservationComponent implements OnInit, OnDestroy {
   // Open the dialog with the booking confirmation
   openDialogSummary(){
 
-    this.dialogSummary = this.dialog.open(DialogSummaryComponent,{
-          disableClose: true,
-          height: '75vh',
-          width: '80vw',
-          data : {
-            name : this.resultForm.value.name,
-            surname : this.resultForm.value.surname,
-            email : this.resultForm.value.email,
-            number : this.resultForm.value.number,
-            date : this.resultForm.value.date,
-            hours: this.resultForm.value.hours,
-            treatment : this.resultForm.value.treatment,
-            loggedIn: this.isAuthenticated,
-            insertion: this.insertion
-          }
-        });
+    if(!this.isAuthenticated) {
+      this.dialogSummary = this.dialog.open(DialogSummaryComponent, {
+        disableClose: true,
+        height: '75vh',
+        width: '80vw',
+        data: {
+          name: this.resultForm.value.name,
+          surname: this.resultForm.value.surname,
+          email: this.resultForm.value.email,
+          number: this.resultForm.value.number,
+          date: this.resultForm.value.date,
+          hours: this.resultForm.value.hours,
+          treatment: this.resultForm.value.treatment,
+          loggedIn: this.isAuthenticated,
+          insertion: this.insertion
+        }
+      });
+    }else{
+      this.dialogSummary = this.dialog.open(DialogSummaryComponent, {
+        disableClose: true,
+        height: '40vh',
+        width: '80vw',
+        data: {
+          name: this.resultForm.value.name,
+          surname: this.resultForm.value.surname,
+          email: this.resultForm.value.email,
+          number: this.resultForm.value.number,
+          date: this.resultForm.value.date,
+          hours: this.resultForm.value.hours,
+          treatment: this.resultForm.value.treatment,
+          loggedIn: this.isAuthenticated,
+          insertion: this.insertion
+        }
+      });
+    }
+
     this.dialogSummary.afterClosed().subscribe(() => {
       this.refreshEvent();
       this.refreshView();
